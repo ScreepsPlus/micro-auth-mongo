@@ -1,0 +1,14 @@
+{
+  "name": "screepsplus-micro-auth",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "basic-auth": "^1.1.0",
+    "bluebird": "^3.5.0",
+    "mongodb": "^2.2.31"
+  }
+}
