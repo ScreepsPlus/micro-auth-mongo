@@ -26,7 +26,7 @@ class Auth {
     const buf =  await crypto.randomBytesAsync(saltlen)
     const salt = buf.toString(encoding)
     const rawHash = await this.pbkdf2(password, salt)
-    const hash = Buffer.from(rawHash, 'binary').toString(encoding)
+    const hash = rawHash.toString(encoding)
     return `${salt}.${hash}`
   }
 
@@ -34,7 +34,7 @@ class Auth {
     const { encoding } = this.options
     const [salt, hash] = pass.split('.')
     const rawHash = await this.pbkdf2(proposed, salt)
-    const calcedHash = Buffer.from(rawHash, 'binary').toString(encoding)
+    const calcedHash = rawHash.toString(encoding)
     return hash === calcedHash
   }
 }

@@ -8,7 +8,7 @@ const Auth = require('./auth.js')
 async function setup (fn) {
   return async (req, res) => {
     req.db = {
-      account: await db.get('account')
+      accounts: await db.get('accounts')
     }
     req.auth = new Auth()
     return fn(req, res)
