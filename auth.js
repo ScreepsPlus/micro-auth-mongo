@@ -17,24 +17,24 @@ class Auth {
   }
 
   pbkdf2 (password, salt) {
-    let { iterations, keylen, digestAlgorithm } = this.options
+    const { iterations, keylen, digestAlgorithm } = this.options
     return crypto.pbkdf2Async(Buffer.from(password), salt, iterations, keylen, digestAlgorithm)
   }
 
   async hashPassword (password) {
-    let { saltlen, encoding } = this.options
-    let buf =  await crypto.randomBytesAsync(saltlen)
-    let salt = buf.toString(encoding)
-    let rawHash = await this.pbkdf2(password, salt)
-    let hash = Buffer.from(rawhash, 'binary').toString(encoding)
+    const { saltlen, encoding } = this.options
+    const buf =  await crypto.randomBytesAsync(saltlen)
+    const salt = buf.toString(encoding)
+    const rawHash = await this.pbkdf2(password, salt)
+    const hash = Buffer.from(rawHash, 'binary').toString(encoding)
     return `${salt}.${hash}`
   }
 
   async verifyPassword (pass, proposed) {
-    let { encoding } = this.options
-    let [salt, hash] = pass.split('.')
-    let rawHash = await this.pbkdf2(proposed, salt)
-    let calcedHash = Buffer.from(rawhash, 'binary').toString(encoding)
+    const { encoding } = this.options
+    const [salt, hash] = pass.split('.')
+    const rawHash = await this.pbkdf2(proposed, salt)
+    const calcedHash = Buffer.from(rawHash, 'binary').toString(encoding)
     return hash === calcedHash
   }
 }

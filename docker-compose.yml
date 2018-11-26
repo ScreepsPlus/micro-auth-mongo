@@ -1,0 +1,11 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+  auth:
+    build: ./
+    image: screepsplus/micro-auth
+    depends_on:
+    - mongo
+    ports:
+    - '8080:8080'
