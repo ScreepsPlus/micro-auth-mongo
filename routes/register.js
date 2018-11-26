@@ -13,7 +13,7 @@ module.exports.POST = async function register (req, res) {
     email = email.toLowerCase()
     const hash = await req.auth.hashPassword(password)
     const exists = await db.accounts.findOne({ $or:[{ username }, { email }] })
-    if (exists) return send(res, 409, { error: 'User already exists' })
+    if (exists) return send(res, 409, { error: 'User already exists', message: 'User already exists' })
     await db.accounts.insert({ username, email, password: hash })
     send(res, 200, { success: true })
   } catch(e) {
