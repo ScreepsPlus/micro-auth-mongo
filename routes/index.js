@@ -6,7 +6,7 @@ module.exports = async function checkAuth (req, res) {
   const { name, pass } = basicAuth(req) || {}
   if (!name || !pass) return unauth(res)
   const username = name.toLowerCase()
-  const { password, salt, hash } = await db.accounts.findOne({ $or: [{ username }, { email: username }] }) || {}
+  const { password, salt, hash } = await db.accounts.findOne({ $or: [{ username }] }) || {}
   if (!password && (!salt || !hash)) return unauth(res)
   const valid = await auth.verifyPassword(password || `${salt}.${hash}`, pass)
   if (valid) {
